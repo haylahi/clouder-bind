@@ -1,6 +1,7 @@
-FROM clouder/clouder-base
-MAINTAINER Yannick Buron yburon@goclouder.net
+FROM clouder/base:3.4
+MAINTAINER Yannick Buron yannick.buron@gmail.com
 
-RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y -q install bind9
-USER root
-CMD /usr/sbin/named -u bind -g
+RUN apk add --update bind
+RUN cp /etc/bind/named.conf.authoritative /etc/bind/named.conf
+
+CMD named -g
